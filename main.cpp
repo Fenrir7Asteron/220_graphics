@@ -3,10 +3,10 @@
 #include <SFML/Graphics.hpp>
 #include <Magick++.h>
 
-#define INPUT_FILE "miku2.png"
+#define INPUT_FILE "gustav_klimt.jpg"
 #define MONOCHROME_FILE "monochrome.png"
-#define HQ_FILE "hq4.png"
-#define OUTPUT_FILE "output4.png"
+#define HQ_FILE "hq_output4.png"
+#define OUTPUT_FILE "output6.png"
 
 int main(int argc,char **argv)
 {
@@ -29,7 +29,6 @@ int main(int argc,char **argv)
     // Apply genetic algorithm
     GeneticAlgorithm ga;
     auto population = ga.make_initial_population();
-
 
     for (int generation = 1; generation <= MAX_GENERATION; ++generation) {
         auto fitnesses = ga.fitness(grayscale_blocks, population);
@@ -54,7 +53,7 @@ int main(int argc,char **argv)
 
     }
 
-    // Get best chromosome of the final population and write it to file
+    // Get best individ of the final population and write it to file
     auto best = ga.get_best(grayscale_blocks, population);
     drawer.draw_ascii_on_image(population.images[best], {population.ascii_strings[best], population.transparencies[best]},
             ASCII_IMAGE_HEIGHT * FONT_SIZE, ASCII_IMAGE_WIDTH * FONT_SIZE);

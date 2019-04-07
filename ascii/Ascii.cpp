@@ -10,8 +10,8 @@ Ascii::Ascii() {
 
     available_symbols.emplace_back('#');
     available_symbols.emplace_back('2');
+    available_symbols.emplace_back('D');
     available_symbols.emplace_back('0');
-    available_symbols.emplace_back('&');
     available_symbols.emplace_back(':');
     available_symbols.emplace_back('.');
     available_symbols.emplace_back(' ');
@@ -59,13 +59,13 @@ char Ascii::generate_ascii_symbol() {
 
 int Ascii::symbol_grayscale(char symbol) {
     switch (symbol) {
-        case '@':
+        case '#':
             return 0;
         case '2':
             return 50;
-        case '0':
+        case 'D':
             return 70;
-        case '&':
+        case '0':
             return 100;
         case ':':
             return 130;
@@ -85,9 +85,9 @@ char Ascii::grayscale_symbol(int grayscale) {
         case 50:
             return '2';
         case 70:
-            return '0';
+            return 'D';
         case 100:
-            return '&';
+            return '0';
         case 130:
             return ':';
         case 180:

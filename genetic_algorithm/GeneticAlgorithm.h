@@ -12,10 +12,9 @@
 #include "../ascii/Ascii.h"
 #include "Population.h"
 
-#define MAX_GENERATION 2400
+#define MAX_GENERATION 8000
 #define MAX_POPULATION_SIZE 49
 #define MUTATION_RATE 10
-#define MUTATION_DENSITY 50
 
 class GeneticAlgorithm {
 public:

@@ -58,7 +58,6 @@ std::vector <double> GeneticAlgorithm::fitness(std::vector <double> &grayscale_b
     for (int i = 0; i < population.size(); ++i) {
         threads.emplace_back(std::thread(&GeneticAlgorithm::fitness_thread, this, std::ref(grayscale_blocks),
                 std::ref(population), i, std::ref(result)));
-
     }
 
     for (auto& thread : threads) {
@@ -128,28 +127,6 @@ void GeneticAlgorithm::mutate(Population* population, std::vector <double> &gray
         auto& transparencies = (population->transparencies)[i];
         int choice = (int) ascii.gen() % MUTATION_RATE;
         if (choice == 0) {
-            /*
-            int n = ascii.gen() % MUTATION_DENSITY;
-            for (int j = 0; j < n; ++j) {
-                int z = ascii.gen() % ascii_string.size();
-                if (ascii_string[z] == '\n') {
-                    --j;
-                    continue;
-                }
-                auto grayscale = ascii.symbol_grayscale(ascii_string[z]);
-                int transparency = (255 / (NUMBER_OF_TRANSPARENCY_STEPS - 1));
-                choice = ascii.gen() % 2;
-                if (choice) {
-                    grayscale += ascii.gen() % 120;
-                    ascii_string[z] = ascii.nearest_symbol(std::min(grayscale, 255));
-                    transparencies[z] = std::max(1, transparencies[z] - transparency);
-                } else {
-                    grayscale -= ascii.gen() % 120;
-                    ascii_string[z] = ascii.nearest_symbol(std::max(grayscale, 0));
-                    transparencies[z] = std::min(255, transparencies[z] + transparency);
-                }
-            }*/
-
             for (int z = 0; z < ascii_string.size(); ++z) {
                 if (ascii_string[z] == '\n') {
                     continue;
@@ -163,12 +140,11 @@ void GeneticAlgorithm::mutate(Population* population, std::vector <double> &gray
                 double distance = std::abs(individual_grayscale - image_grayscale);
 
                 double probability = unif(re);
-                //std::cout << distance << " " << probability << std::endl;
                 if (probability * 10 <= distance) {
                     int grayscale = ascii.symbol_grayscale(ascii_string[z]);
-                    if (generation < 400) {
+                    if (generation < 2000) {
                         transparency = 255 / (NUMBER_OF_TRANSPARENCY_STEPS - 1);
-                    } else if (generation < 1200) {
+                    } else if (generation < 4000) {
                         transparency = 255 / (NUMBER_OF_TRANSPARENCY_STEPS_PRECISE1 - 1);
                     } else {
                         transparency = 255 / (NUMBER_OF_TRANSPARENCY_STEPS_PRECISE2 - 1);
