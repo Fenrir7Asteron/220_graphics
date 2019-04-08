@@ -122,7 +122,7 @@ std::pair<std::string, std::vector <sf::Uint8>> Ascii::generate_ascii() {
     return {to_draw, transparencies};
 }
 
-void Ascii::draw_ascii_on_image(sf::Image &image, std::pair<std::string, std::vector <sf::Uint8>> to_draw, int xr, int yr) {
+sf::Image Ascii::draw_ascii_on_image(std::pair<std::string, std::vector <sf::Uint8>> to_draw, int xr, int yr) {
     sf::Text text;
     text.setFont(font);
     text.setCharacterSize(FONT_SIZE);
@@ -146,7 +146,7 @@ void Ascii::draw_ascii_on_image(sf::Image &image, std::pair<std::string, std::ve
 
     renderTexture.display();
     auto texture = renderTexture.getTexture();
-    image = texture.copyToImage();
+    return texture.copyToImage();
 }
 
 std::vector <double> Ascii::calculate_blocks_grayscale(sf::Image &image) {

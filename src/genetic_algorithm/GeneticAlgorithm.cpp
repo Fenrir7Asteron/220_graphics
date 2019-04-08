@@ -21,9 +21,6 @@ Population GeneticAlgorithm::make_initial_population() {
         auto text = ascii.generate_ascii();
         auto& ascii_string = text.first;
         auto& transparencies = text.second;
-        sf::Image image;
-        image.create(ASCII_IMAGE_WIDTH * 4, ASCII_IMAGE_HEIGHT * 4, sf::Color(255, 255, 255));
-        result.images.push_back(image);
         result.ascii_strings.push_back(ascii_string);
         result.transparencies.push_back(transparencies);
     }
@@ -85,7 +82,6 @@ void GeneticAlgorithm::crossover_thread(Population* population, int i, int j, in
             child_transparency[z] = mother_transparency[z];
         }
     }
-    result.images[index] = (population->images)[k];
     result.ascii_strings[index] = child_string;
     result.transparencies[index] = child_transparency;
 }
@@ -142,9 +138,9 @@ void GeneticAlgorithm::mutate(Population* population, std::vector <double> &gray
                 double probability = unif(re);
                 if (probability * 10 <= distance) {
                     int grayscale = ascii.symbol_grayscale(ascii_string[z]);
-                    if (generation < 2000) {
+                    if (generation < MAX_GENERATION / 6) {
                         transparency = 255 / (NUMBER_OF_TRANSPARENCY_STEPS - 1);
-                    } else if (generation < 4000) {
+                    } else if (generation < MAX_GENERATION / 2) {
                         transparency = 255 / (NUMBER_OF_TRANSPARENCY_STEPS_PRECISE1 - 1);
                     } else {
                         transparency = 255 / (NUMBER_OF_TRANSPARENCY_STEPS_PRECISE2 - 1);

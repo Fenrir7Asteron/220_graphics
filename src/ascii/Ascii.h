@@ -25,7 +25,7 @@ public:
     char grayscale_symbol(int grayscale);
     char nearest_symbol(int grayscale);
     std::pair<std::string, std::vector <sf::Uint8>> generate_ascii();
-    void draw_ascii_on_image(sf::Image &image, std::pair<std::string, std::vector <sf::Uint8>> to_draw, int xr, int yr);
+    sf::Image draw_ascii_on_image(std::pair<std::string, std::vector <sf::Uint8>> to_draw, int xr, int yr);
     std::vector <double> calculate_blocks_grayscale(sf::Image &image);
 
     std::mt19937 gen;

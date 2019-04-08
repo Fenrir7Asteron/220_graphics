@@ -9,10 +9,10 @@
 #include <thread>
 #include <cmath>
 #include <algorithm>
-#include "../ascii/Ascii.h"
+#include "Ascii.h"
 #include "Population.h"
 
-#define MAX_GENERATION 8000
+#define MAX_GENERATION 6000
 #define MAX_POPULATION_SIZE 49
 #define MUTATION_RATE 10
 

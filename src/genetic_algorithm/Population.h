@@ -13,7 +13,6 @@ public:
     Population();
     Population(int sz);
 
-    std::vector<sf::Image> images;
     std::vector<std::string> ascii_strings;
     std::vector<std::vector<sf::Uint8>> transparencies;
 

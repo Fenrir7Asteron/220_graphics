@@ -1,12 +1,12 @@
 #include <iostream>
-#include "genetic_algorithm/GeneticAlgorithm.h"
+#include "GeneticAlgorithm.h"
 #include <SFML/Graphics.hpp>
-#include <Magick++.h>
+#include <ImageMagick-7/Magick++.h>
 
-#define INPUT_FILE "gustav_klimt.jpg"
+#define INPUT_FILE "miku.jpg"
 #define MONOCHROME_FILE "monochrome.png"
-#define HQ_FILE "hq_output4.png"
-#define OUTPUT_FILE "output6.png"
+#define HQ_FILE "hq_output.png"
+#define OUTPUT_FILE "output.png"
 
 int main(int argc,char **argv)
 {
@@ -46,18 +46,18 @@ int main(int argc,char **argv)
         // Save intermediate results to see the progress
         if (generation % 200 == 0) {
             auto best = ga.get_best(grayscale_blocks, population);
-            drawer.draw_ascii_on_image(population.images[best], {population.ascii_strings[best], population.transparencies[best]},
+            auto output_image = drawer.draw_ascii_on_image({population.ascii_strings[best], population.transparencies[best]},
                                        ASCII_IMAGE_HEIGHT * FONT_SIZE, ASCII_IMAGE_WIDTH * FONT_SIZE);
-            population.images[best].saveToFile(HQ_FILE);
+            output_image.saveToFile(HQ_FILE);
         }
 
     }
 
     // Get best individ of the final population and write it to file
     auto best = ga.get_best(grayscale_blocks, population);
-    drawer.draw_ascii_on_image(population.images[best], {population.ascii_strings[best], population.transparencies[best]},
+    auto output_image = drawer.draw_ascii_on_image({population.ascii_strings[best], population.transparencies[best]},
             ASCII_IMAGE_HEIGHT * FONT_SIZE, ASCII_IMAGE_WIDTH * FONT_SIZE);
-    population.images[best].saveToFile(HQ_FILE);
+    output_image.saveToFile(HQ_FILE);
 
     // Resize the final image to 512x512
     Magick::Image resized_image(HQ_FILE);
